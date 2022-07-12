@@ -1,0 +1,41 @@
+@use "src/styles/vars";
+
+.header{
+    border-radius:22px;
+    height: 5em;
+    background-color: #FFF;
+    width: 50%;
+    margin:3em auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding:0 1.5em 0;
+    box-shadow: vars.$boxShadow vars.$backgroundBlue;
+    &-title{
+        width: 40%;
+    }
+    &-navigation{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 60%;
+        height: 100%;
+   
+    }
+    &-navigation-link{
+        &:hover{
+            line-height: 4em;
+            border-bottom:solid 3px blue;
+        }
+    }
+    @media (max-width: 1200px) {
+        flex-direction: column;
+        justify-content: center;
+        padding:1em 1.5em;
+        &-title{
+            margin-bottom:0.6em;
+            width: 100%;
+            text-align: center;
+        }
+    }
+}

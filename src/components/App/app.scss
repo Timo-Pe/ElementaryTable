@@ -1,0 +1,15 @@
+@use "src/styles/vars";
+
+.app{
+
+    background-color: vars.$backgroundWhite;
+    height: calc(100vh - 8em);
+    max-width: 100%;
+    border-radius: 21px;
+    position: fixed;
+    top:0;
+    bottom:0;
+    right: 0;
+    left: 0;
+    margin:4em;
+}
