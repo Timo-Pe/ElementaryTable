@@ -1,5 +1,4 @@
-
-import "./periodicTable2.scss";
+import "./periodicTable.scss";
 
 // == Composant
 const PeriodicTable= () => { 
