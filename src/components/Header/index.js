@@ -1,9 +1,8 @@
 // == Import
-
 import "./header.scss";
 
 // == Composant
-const Header = () => (
+const Header = () =>  (
     <header className="header">
         <h1 className="header-title">ElementaryTable</h1>
         <nav className= "header-navigation">
@@ -13,7 +12,6 @@ const Header = () => (
         </nav>
     </header>
   );
-  
   // == Export
   export default Header;
   

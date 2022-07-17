@@ -15,25 +15,88 @@
     }
 }
 
-.row{
-    border-radius:3px;
+.cell{
+   
+    border-radius:10px;
     font-size: 1.2rem;
-    text-align: center;
     height: 60px;
     background-color:vars.$backgroundBlue;
     width: 60px;
-    box-shadow:4px 1px 4px 0px vars.$backgroundBlue;
-    transition: 0.5s;
+    box-shadow:4px 1px 4px 0px gray;
+    transition: 0.4s;
+    color:#FFF;
+    padding:0.3em;
+    &:hover{
+        box-shadow:0px 0px 0px 0px gray;
+    }
 
-    &-nonMetaux{
-        background-color: green;
+    &-halogen{
+        background-color: #db758a;
+    }
+    &-metalloid{
+        background-color: #a576ac;
+    }
+    &-alkali-metal{
+        background-color: #b0c470;
+    }
+    &-nonmetal{
+        background-color: #ca4960;
+    }
+    &-metal{
+        background-color: #804387;
+    }
+    &-noble-gas{
+        background-color: #e4a3b1;
+    }
+    &-transition-metal{
+        background-color: #4066b2;
+    }
+    &-post-transition-metal{
+        background-color: #404040;
+    }
+    &-alkaline-earth-metal{
+        background-color: #90ae41;
+    }
+    &-symbol{
+        font-size: 1em;
+        width: 100%;
+        display: block;
+        height: 50%;
+    }
+    &-atomicNumber{
+        font-size: 0.8em;
+        width: 100%;
+        display: block;
+        text-align: right;
+        height: 50%;
     }
     @media (max-width: 1400px) {
         width:50px;
         height:50px;
+        .cell{
+            border-radius:8px ;
+            &-symbol{
+                font-size: 0.8em;
+    
+            }
+            &-atomicNumber{
+                font-size: 0.6em;
+            }
+        }
+        
     }
     @media (max-width: 1200px) {
         width:40px;
         height:40px;
+        .cell{
+            border-radius:6px ;
+            &-symbol{
+                font-size: 0.6em;
+    
+            }
+            &-atomicNumber{
+                font-size: 0.5em;
+            }
+        }
     }
 }
