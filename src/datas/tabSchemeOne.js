@@ -9,7 +9,7 @@ export default [
     },
     {
         nameCol: 'C',
-        SchemeCells:[21, 39, 39, 39],
+        SchemeCells:[21, 39, 57, 89],
     },
     {
         nameCol: 'D',
