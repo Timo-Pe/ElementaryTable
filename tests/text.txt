@@ -1,0 +1,19 @@
+<div className="elementPage-details">
+                    <h1 className='elementPage-details-title'>Nom de l'element</h1>
+                    <ul className='elementPage-details-list'>
+                        <li>Année de decouverte :<span>1987</span></li>
+                        <li>Masse atomique:<span>8</span></li>
+                        <li>Densité:<span>10</span></li>
+                        <li>Affinité electronique : <span>10</span></li>
+                        <li>Electro Negativité: <span>1</span></li>
+                        <li>Rayon atomique :<span>10</span></li>
+                        <li>Etat Standard :<span>Gas</span></li>
+                        <li>Point d'ébullition :<span>1615</span></li>
+                        <li>Point de fusion :<span>454</span></li>
+                        <li>Groupe : <span>Transition Metal</span></li>
+                    </ul>
+                </div>
+                <p className='elementPage-description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <div className="elementPage-elementBackground">
+                    <span>S</span>
+                </div>

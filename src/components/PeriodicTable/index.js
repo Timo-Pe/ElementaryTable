@@ -1,4 +1,5 @@
 import "./periodicTable.scss";
+import { Link } from "react-router-dom";
 
 // == Composant
 const PeriodicTable = ({slugifyFunction, tabAllElements, firstTabScheme, secondTabScheme}) => {
@@ -19,10 +20,10 @@ const PeriodicTable = ({slugifyFunction, tabAllElements, firstTabScheme, secondT
           cellsTabJsx.reverse();
           return (
             cellsTabJsx.map((objectCurrent, index) => (
-              <a href ='#' key={index} className={`cell cell-${slugifyFunction(objectCurrent.groupBlock)}`}>
+              <Link to={`/element/${objectCurrent.atomicNumber}`} key={index} className={`cell cell-${slugifyFunction(objectCurrent.groupBlock)}`}>
                 <span className="cell-atomicNumber">{objectCurrent.atomicNumber}</span>
                 <span className="cell-symbol">{objectCurrent.symbol}</span>
-              </a>
+              </Link>
       
             )))
       }

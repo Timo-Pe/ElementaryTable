@@ -6,10 +6,15 @@ import axios from "axios";
 import tabSchemeOne from 'src/datas/tabSchemeOne';
 import tabSchemeTwo from 'src/datas/tabSchemeTwo';
 import PeriodicTable from "src/components/PeriodicTable";
+import { Routes, Route } from 'react-router';
+import Element from "src/components/Element"
 // == Composant
 const App = () => {
 
   const [elementstab, setElementstab] = useState([]);
+  const [schemeElementAnimate, setSchemeElementAnimate] = useState([-2,-1,0,1,2]);
+  
+
 
 
 const slugify = (text) => {
@@ -35,22 +40,41 @@ const slugify = (text) => {
       console.log('error :', error);
     })
   }
+// [-2,-1,0,1,2]
+
+// [2,-2,-1,0,1]
 
     useEffect(() => {
       loadElements();
 
     }, []);
 
-   
+    const handleClickAnimate = () => {
+      let tabAlexa = [];
+    
+      for(let i of schemeElementAnimate){
+        i--
+        if (i === -3) { i = 2 }
+
+        tabAlexa.push(i)
+      }
+      setSchemeElementAnimate(tabAlexa);
+    }
+
     return (
     <div className="app">
       <Header />
-      <PeriodicTable 
+      <Routes>
+        <Route path="/" element={<PeriodicTable 
             slugifyFunction={slugify} 
             tabAllElements={elementstab} 
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
-            />
+            /> } />
+        <Route path="/element/:atomicNumber" element={<Element animate={handleClickAnimate} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path="*" element={<div>Error: 404</div>}/>
+      </Routes>
+      
       
     </div>
   );

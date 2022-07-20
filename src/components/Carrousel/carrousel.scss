@@ -1,0 +1,129 @@
+@use "src/styles/vars";
+
+.carrousel{
+    width: 700px;
+    height: 700px;
+    border: 30px solid #FFF;
+    border-radius: 50%;
+    position: absolute;
+    top:-300px;
+    left:-300px;
+    box-shadow: 0px 9px 25px -5px;
+    transition: 1s;
+    &-element{
+        transform: rotate(45deg);
+    }
+    button{
+        position: absolute;
+        top:500px;
+        right:-500px;
+    }
+    
+    
+
+    &-element-third{
+        border-radius:10px;
+        font-size: 1.2rem;
+        height: 110px;
+        background-color:vars.$backgroundBlue;
+        width: 110px;
+        box-shadow:4px 1px 4px 0px gray;
+        transition: 0.4s;
+        color:#FFF;
+        padding:0.4em;
+        position:relative;
+        left:595px;
+        top:45px;
+
+    }
+    &-element-zero{
+        border-radius:10px;
+        font-size: 1.2rem;
+        height: 110px;
+        background-color:vars.$backgroundBlue;
+        width: 110px;
+        box-shadow:4px 1px 4px 0px gray;
+        transition: 0.4s;
+        color:#FFF;
+        padding:0.4em;
+        position:relative;
+        left:509px;
+        top:-300px;
+
+    }
+   
+}
+.element-carrousel{
+    &[data-pos="-2"]{
+        border-radius:15px;
+        font-size: 1.2rem;
+        height: 110px;
+        background-color:vars.$backgroundBlue;
+        width: 110px;
+        box-shadow:4px 1px 4px 0px gray;
+        transition: 0.4s;
+        color:#FFF;
+        padding:0.4em;
+        position: absolute;
+        right: 20px;
+        top:600px;
+        left:85px;
+    }
+    &[data-pos="-1"]{
+        border-radius:15px;
+        font-size: 1.2rem;
+        height: 110px;
+        background-color:vars.$backgroundBlue;
+        width: 110px;
+        box-shadow:4px 1px 4px 0px gray;
+        transition: 0.4s;
+        color:#FFF;
+        padding:0.4em;
+        position: absolute;
+        right: 20px;
+        top:600px;
+        left:290px;
+    }
+    &[data-pos="0"]{
+        border-radius:10px;
+        font-size: 1.2rem;
+        height: 140px;
+        background-color:green;
+        width: 140px;
+        box-shadow:4px 1px 4px 0px gray;
+        transition: 0.4s;
+        color:#FFF;
+        padding:0.4em;
+        position:absolute;
+        left:500px;
+        top:476px;
+    }
+    &[data-pos="1"]{
+        border-radius:15px;
+        font-size: 1.2rem;
+        height: 110px;
+        background-color:red;
+        width: 110px;
+        box-shadow:4px 1px 4px 0px gray;
+        transition: 0.4s;
+        color:#FFF;
+        padding:0.4em;
+        position: absolute;
+        right: 20px;
+        top:290px;
+        left:600px;
+    }
+    &[data-pos="2"]{
+        border-radius:15px;
+        font-size: 1.2rem;
+        height: 110px;
+        background-color:transparent;
+        width: 110px;
+        color:#FFF;
+        padding:0.4em;
+        position: absolute;
+        right: 20px;
+        top:90px;
+        left:600px;
+    }
+}
