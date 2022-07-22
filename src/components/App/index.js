@@ -1,5 +1,6 @@
 // == Import
 import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 import Header from "src/components/Header";
 import "./app.scss";
 import axios from "axios";
@@ -13,22 +14,45 @@ const App = () => {
 
   const [elementstab, setElementstab] = useState([]);
   const [schemeElementAnimate, setSchemeElementAnimate] = useState([-2,-1,0,1,2]);
-  
+  const [activeCarrousel, setActiveCarrousel] = useState(false);
+  const location = useLocation();
 
+  const activatedCarrousel = () => {
+      if (location.pathname.indexOf("element") === 1){
+        setActiveCarrousel(true);
+      }else {
+        setActiveCarrousel(false);
+      }
 
+  }
 
-const slugify = (text) => {
-  return text
-    .toString()                           // Cast to string (optional)
-    .normalize('NFKD')            // The normalize() using NFKD method returns the Unicode Normalization Form of a given string.
-    .toLowerCase()                  // Convert the string to lowercase letters
-    .trim()                                  // Remove whitespace from both sides of a string (optional)
-    .replace(/\s+/g, '-')            // Replace spaces with -
-    .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
-    .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+  const carrouselAnimation = (senseRotation) => {
+    let schemeElement = [];
+
+    if (senseRotation === 0) {
+      for(let i of schemeElementAnimate){
+        i--
+        if (i === -3) { i = 2 };
+        schemeElement.push(i)
+      }
+    }else if (senseRotation === 1){
+
+      for(let i of schemeElementAnimate){
+        i++
+        if (i === 3) { i = -2 }
+        schemeElement.push(i)
+      }
+    }
+    setSchemeElementAnimate(schemeElement);
+  }
+  const handleScroll = (e) => {
+    if (e.deltaY > 0){
+    setTimeout( () => { carrouselAnimation(0)}, 200)
+  } 
+    if (e.deltaY < 0){
+      setTimeout( () => { carrouselAnimation(1)}, 200)
+    }
 }
-    
-
   const loadElements = () => {
 
     axios.get('https://periodic-table-elements-info.herokuapp.com/elements')
@@ -40,29 +64,31 @@ const slugify = (text) => {
       console.log('error :', error);
     })
   }
-// [-2,-1,0,1,2]
 
-// [2,-2,-1,0,1]
-
-    useEffect(() => {
-      loadElements();
-
-    }, []);
-
-    const handleClickAnimate = () => {
-      let tabAlexa = [];
+  const slugify = (text) => {
+    return text
+      .toString()                           // Cast to string (optional)
+      .normalize('NFKD')            // The normalize() using NFKD method returns the Unicode Normalization Form of a given string.
+      .toLowerCase()                  // Convert the string to lowercase letters
+      .trim()                                  // Remove whitespace from both sides of a string (optional)
+      .replace(/\s+/g, '-')            // Replace spaces with -
+      .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
+      .replace(/\-\-+/g, '-');        // Replace multiple - with single -
+  }
     
-      for(let i of schemeElementAnimate){
-        i--
-        if (i === -3) { i = 2 }
+  useEffect(() => {
+    loadElements();
+    activatedCarrousel();
+  }, []);
 
-        tabAlexa.push(i)
-      }
-      setSchemeElementAnimate(tabAlexa);
-    }
+  useEffect(() => {
+    activatedCarrousel();
+  }, [location]);
+
 
     return (
-    <div className="app">
+      
+    <div onWheel={activeCarrousel ? handleScroll : undefined} className="app">
       <Header />
       <Routes>
         <Route path="/" element={<PeriodicTable 
@@ -71,11 +97,10 @@ const slugify = (text) => {
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
             /> } />
-        <Route path="/element/:atomicNumber" element={<Element animate={handleClickAnimate} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path="/element/:atomicNumber" element={<Element animate={handleScroll} stateAnimateScheme={schemeElementAnimate} />} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
-      
-      
+   
     </div>
   );
 }

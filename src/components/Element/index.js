@@ -6,13 +6,18 @@ import Carrousel from "src/components/Carrousel";
 const Element = ({animate, stateAnimateScheme}) => {
 
     const {atomicNumber} = useParams();
+    
+
 
     return (
-            <div className="elementPage">
+        
+            <div   className="elementPage" >
+
                 
-                <Carrousel animate = {animate} stateAnimateScheme={stateAnimateScheme} />
-                
+                <Carrousel stateAnimateScheme={stateAnimateScheme} />
+
             </div>
+    
         )
     }
 // == Export

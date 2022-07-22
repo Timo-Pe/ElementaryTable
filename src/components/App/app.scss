@@ -1,6 +1,7 @@
 @use "src/styles/vars";
 
 .app{
+ 
     overflow: hidden;
     background-color: vars.$backgroundWhite;
     height: calc(100vh - 8em);
@@ -12,4 +13,5 @@
     right: 0;
     left: 0;
     margin:4em;
+
 }

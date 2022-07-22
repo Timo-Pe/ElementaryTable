@@ -2,13 +2,12 @@ import "./carrousel.scss";
 
 
 // == Composant
-const Carrousel = ({animate, stateAnimateScheme}) => {
+const Carrousel = ({stateAnimateScheme}) => {
    
     return (
-            <div className='carrousel'>
-                <button onClick={animate} type="button">Button</button>
+            <div className='carrousel' >
                     {stateAnimateScheme.map((item, index) => (
-                        <div key= {index} className='element-carrousel cell-halogen' data-pos={item}>{item}</div>
+                        <div key= {index} className='carrousel-element cell-halogen' data-pos={item}>{item}</div>
                     ))}
                 
             </div>
