@@ -15,6 +15,7 @@ const App = () => {
   const [elementstab, setElementstab] = useState([]);
   const [schemeElementAnimate, setSchemeElementAnimate] = useState([-2,-1,0,1,2]);
   const [activeCarrousel, setActiveCarrousel] = useState(false);
+  const [loading, setLoading] = useState(true);
   const location = useLocation();
 
   const activatedCarrousel = () => {
@@ -59,6 +60,7 @@ const App = () => {
 
     .then((response) => {
       setElementstab(response.data);
+      setLoading(false);
     })
     .catch((error) => {
       console.log('error :', error);
@@ -90,16 +92,20 @@ const App = () => {
       
     <div onWheel={activeCarrousel ? handleScroll : undefined} className="app">
       <Header />
-      <Routes>
+
+      {!loading && (
+        <Routes>
         <Route path="/" element={<PeriodicTable 
             slugifyFunction={slugify} 
             tabAllElements={elementstab} 
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
             /> } />
-        <Route path="/element/:atomicNumber" element={<Element animate={handleScroll} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path="/element/:atomicNumber" element={<Element  allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
+      )}
+      
    
     </div>
   );

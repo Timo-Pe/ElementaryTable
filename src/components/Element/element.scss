@@ -1,11 +1,68 @@
 .elementPage{
-   
+    display: grid;
+    margin-top: 1.8em;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+      ". details"
+      "description elementBackground";
+    height: calc(100vh - 18em);
     &-details{
         width: 100%;
+        grid-area: details;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &-listContainer{
+            display: flex;
+            flex-direction: row;
+            margin-top: 2em;
+            font-size: 0.9em;
+            line-height: 1.8em;
+        }
+        &-list-two{
+            margin-left:4em;
+        }
+ 
+    }
+    &-description{
+        width: 70%;
+        margin: 0 auto 0 16em;
+        grid-area: description;
+        display: flex;
+        align-items: center;
+        line-height: 1.6em;
+        font-size: 0.9em;
+    }
+    &-elementBackground{
+        grid-area: elementBackground;
+        position:relative;
+        border-radius:30px;
+        font-size: 1.2em;
+        height: 400px;
+        background-color:#4066b2;
+        width: 400px;
+        box-shadow:7px 4px 8px 0px gray;
+        color:#FFF;
+        padding:3em;
+        top:2em;
+        left:15em;
+        opacity: 0.50;
+        transform:rotate(-10deg);
+    &-symbol{
+        font-size: 9em;
+        width: 100%;
+        display: block;
+    }
+    &-atomicNumber{
+        font-size:7em;
+        width: 100%;
+        display: block;
+        text-align: end;
 
     }
-    button{
-        margin-left: 50em;
     }
+
 }
 
