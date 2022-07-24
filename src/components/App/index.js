@@ -16,7 +16,9 @@ const App = () => {
   const [schemeElementAnimate, setSchemeElementAnimate] = useState([-2,-1,0,1,2]);
   const [activeCarrousel, setActiveCarrousel] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [currentDisplayElement, setCurrentDisplayElement] = useState(10);
   const location = useLocation();
+
 
   const activatedCarrousel = () => {
       if (location.pathname.indexOf("element") === 1){
@@ -46,14 +48,40 @@ const App = () => {
     }
     setSchemeElementAnimate(schemeElement);
   }
+
+
+  const decrementCurrentElement = () => {
+    if (currentDisplayElement === 1) {
+      setCurrentDisplayElement(118);
+    }else {
+      setCurrentDisplayElement(currentDisplayElement - 1);
+    }
+  }
+
   const handleScroll = (e) => {
     if (e.deltaY > 0){
-    setTimeout( () => { carrouselAnimation(0)}, 200)
+    setTimeout( () => { 
+      carrouselAnimation(0)
+      incrementCurrentElement()
+      
+    }, 200)
   } 
     if (e.deltaY < 0){
-      setTimeout( () => { carrouselAnimation(1)}, 200)
+      setTimeout( () => { 
+        carrouselAnimation(1)
+        decrementCurrentElement()
+        
+      }, 200)
     }
 }
+  const incrementCurrentElement = () => {
+    
+    if (currentDisplayElement === 118) {
+      setCurrentDisplayElement(1);
+    }else {
+      setCurrentDisplayElement(currentDisplayElement + 1);
+    }
+  }
   const loadElements = () => {
 
     axios.get('https://periodic-table-elements-info.herokuapp.com/elements')
@@ -80,7 +108,7 @@ const App = () => {
     
   useEffect(() => {
     loadElements();
-    activatedCarrousel();
+ 
   }, []);
 
   useEffect(() => {
@@ -101,7 +129,7 @@ const App = () => {
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
             /> } />
-        <Route path="/element/:atomicNumber" element={<Element  allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path='/element/:atomicNumber' element={<Element setCurrentElementState={setCurrentDisplayElement} slugifyFunction= {slugify} currentElement={currentDisplayElement} allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
       )}

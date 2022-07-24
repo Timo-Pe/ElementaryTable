@@ -2,33 +2,41 @@ import "./element.scss";
 import { useParams } from "react-router-dom";
 import Carrousel from "src/components/Carrousel";
 
-// == Composant
-const Element = ({allElements, stateAnimateScheme}) => {
 
-    const {atomicNumber} = useParams();
+// == Composant
+const Element = ({ setCurrentElementState , slugifyFunction, currentElement, allElements, stateAnimateScheme}) => {
+
+    //const {atomicNumber} = useParams();
+    //let currentNomber = parseInt(atomicNumber)
+
+
+        const elementCurrent = allElements.find(item => item.atomicNumber == currentElement);
+        const beforeCurrent = allElements.find(item => item.atomicNumber == currentElement - 1);
+        const beforeNegativeCurrent = allElements.find(item => item.atomicNumber == currentElement - 2);
+        const afterCurrent = allElements.find(item => item.atomicNumber == currentElement + 1);
+        const afterPositiveCurrent = allElements.find(item => item.atomicNumber == currentElement + 2);
+
     
-    const elementCurrent = allElements.find(item => item.atomicNumber == atomicNumber);
-    console.log(elementCurrent)
     return (
 
             <div className="elementPage" >
-                <Carrousel stateAnimateScheme={stateAnimateScheme} />
+                <Carrousel  stateAnimateScheme={stateAnimateScheme} afterCurrent={afterCurrent} afterPositiveCurrent={afterPositiveCurrent} beforeNegativeCurrent={beforeNegativeCurrent} beforeCurrent={beforeCurrent} currentElement={elementCurrent} />
                 <div className="elementPage-details">
                     <h1 className='elementPage-details-title'>{elementCurrent.name}</h1>
                     <div className='elementPage-details-listContainer'>
                         <ul className='elementPage-details-list-one'>
-                            <li>Année de decouverte :<span>{elementCurrent.yearDiscovered}</span></li>
-                            <li>Masse atomique:<span>8</span></li>
-                            <li>Densité:<span>10</span></li>
-                            <li>Affinité electronique : <span>10</span></li>
-                            <li>Electro Negativité: <span>1</span></li>
+                            <li>Année de decouverte : <span>{elementCurrent.yearDiscovered}</span></li>
+                            <li>Masse atomique: <span>{elementCurrent.atomicMass}</span></li>
+                            <li>Densité: <span>{elementCurrent.density}</span></li>
+                            <li>Affinité electronique : <span>{elementCurrent.electronAffinity}</span></li>
+                            <li>Electro Negativité: <span>{elementCurrent.electronegativity}</span></li>
                         </ul>
                         <ul className='elementPage-details-list-two'>
-                            <li>Rayon atomique :<span>10</span></li>
-                            <li>Etat Standard :<span>Gas</span></li>
-                            <li>Point d'ébullition :<span>1615</span></li>
-                            <li>Point de fusion :<span>454</span></li>
-                            <li>Groupe : <span>Transition Metal</span></li>
+                            <li>Rayon atomique : <span>{elementCurrent.atomicRadius}</span></li>
+                            <li>Etat Standard : <span>{elementCurrent.standardState}</span></li>
+                            <li>Point d'ébullition : <span>{elementCurrent.boilingPoint}</span></li>
+                            <li>Point de fusion : <span>{elementCurrent.meltingPoint}</span></li>
+                            <li>Groupe : <span>{elementCurrent.groupBlock}</span></li>
                         </ul>
                     </div>
                 </div>

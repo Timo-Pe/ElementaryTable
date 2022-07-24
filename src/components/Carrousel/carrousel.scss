@@ -18,6 +18,7 @@
         right:-500px;
     }
     &-element{
+        
         &[data-pos="-2"]{
             height: 110px;
             background-color:transparent;
@@ -29,6 +30,7 @@
             z-index: 1;
             top:600px;
             left:85px;
+            padding:3em;
         }
         &[data-pos="-1"]{
             @include mixins.element-carrousel;
@@ -38,6 +40,7 @@
             right: 20px;
             top:600px;
             left:290px;
+           
         }
         &[data-pos="0"]{
             @include mixins.element-carrousel;
@@ -46,6 +49,7 @@
             width: 140px;
             left:500px;
             top:476px;
+            font-size: 1.7em;
         }
         &[data-pos="1"]{
             @include mixins.element-carrousel;
@@ -68,6 +72,53 @@
             z-index: 1;
             
         }
+        &-symbol{
+            font-size: 2em;
+            width: 100%;
+            display: block;
+            height: 50%;
+        }
+        &-atomicNumber{
+            font-size:1em;
+            width: 100%;
+            display: block;
+            text-align: right;
+            height: 50%;
+    
+        }
     }
 }
+.cell-halogen{
+    background-color: #db758a;
+  }
+  .cell-metalloid{
+    background-color: #a576ac;
+  }
+  .cell-alkali-metal{
+    background-color: #b0c470;
+  }
+  .cell-nonmetal{
+    background-color: #ca4960;
+  }
+  .cell-metal{
+    background-color: #804387;
+  }
+  .cell-noble-gas{
+    background-color: #e4a3b1;
+  }
+  .cell-transition-metal{
+    background-color: #4066b2;
+  }
+  .cell-post-transition-metal{
+    background-color: #404040;
+  }
+  .cell-alkaline-earth-metal{
+    background-color: #90ae41;
+  }
+  .cell-actinoid{
+    background-color: #99add9;
+  }
+  .cell-lanthanoid{
+    background-color: #7690ca;
+  }
 
