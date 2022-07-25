@@ -13,10 +13,10 @@ import Element from "src/components/Element"
 const App = () => {
 
   const [elementstab, setElementstab] = useState([]);
-  const [schemeElementAnimate, setSchemeElementAnimate] = useState([-2,-1,0,1,2]);
+  const [schemeElementAnimate, setSchemeElementAnimate] = useState([0,1,2,3,4]);
   const [activeCarrousel, setActiveCarrousel] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [currentDisplayElement, setCurrentDisplayElement] = useState(10);
+  const [currentDisplayElement, setCurrentDisplayElement] = useState([117,118,1,2,3]);
   const location = useLocation();
 
 
@@ -35,14 +35,14 @@ const App = () => {
     if (senseRotation === 0) {
       for(let i of schemeElementAnimate){
         i--
-        if (i === -3) { i = 2 };
+        if (i === -1) { i = 4 };
         schemeElement.push(i)
       }
     }else if (senseRotation === 1){
 
       for(let i of schemeElementAnimate){
         i++
-        if (i === 3) { i = -2 }
+        if (i === 5) { i = 0 }
         schemeElement.push(i)
       }
     }
@@ -51,11 +51,15 @@ const App = () => {
 
 
   const decrementCurrentElement = () => {
-    if (currentDisplayElement === 1) {
-      setCurrentDisplayElement(118);
-    }else {
-      setCurrentDisplayElement(currentDisplayElement - 1);
+    let tabsCopy = [];
+    for (let element of currentDisplayElement){
+      if (element == 1) {
+        tabsCopy.push(118);
+      }else {
+        tabsCopy.push(element - 1);
+      }  
     }
+    setCurrentDisplayElement(tabsCopy);
   }
 
   const handleScroll = (e) => {
@@ -75,12 +79,16 @@ const App = () => {
     }
 }
   const incrementCurrentElement = () => {
-    
-    if (currentDisplayElement === 118) {
-      setCurrentDisplayElement(1);
-    }else {
-      setCurrentDisplayElement(currentDisplayElement + 1);
+    let tabsCopy = [];
+    for (let element of currentDisplayElement){
+      if (element == 118) {
+        tabsCopy.push(1);
+      }else {
+        tabsCopy.push(element + 1);
+      }
+      
     }
+    setCurrentDisplayElement(tabsCopy);
   }
   const loadElements = () => {
 
@@ -129,7 +137,7 @@ const App = () => {
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
             /> } />
-        <Route path='/element/:atomicNumber' element={<Element setCurrentElementState={setCurrentDisplayElement} slugifyFunction= {slugify} currentElement={currentDisplayElement} allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path='/element/:atomicNumber' element={<Element setCurrentElementState={setCurrentDisplayElement} slugifyFunction= {slugify} currentElements={currentDisplayElement} allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
       )}

@@ -2,35 +2,23 @@ import "./carrousel.scss";
 
 
 // == Composant
-const Carrousel = ({ afterCurrent, afterPositiveCurrent, slugifyFunction, beforeNegativeCurrent ,beforeCurrent,currentElement, stateAnimateScheme}) => {
-
-
+const Carrousel = ({  slugifyFunction, currentElements, stateAnimateScheme}) => {
+//si l'index du currentElement est egale a l'item du stateSheme alors tu genere un code avec 
+    const generateJSXDiv = (item, index) => {
+    
+        const element = currentElements[item];
+  
+        return (<div key={index} className={`carrousel-element carrousel-element-${slugifyFunction(element.groupBlock)}`} data-pos={item}>
+                    <span className="carrousel-element-atomicNumber">{element.atomicNumber}</span>
+                    <span className="carrousel-element-symbol">{element.symbol}</span>
+            </div>)
+    }
 
     
     return (
     
             <div className='carrousel' >
-                    {stateAnimateScheme.map((item, index) => (
-    
-                        <div key={index} className='carrousel-element cell-halogen' data-pos={item}>
-                            <span className="carrousel-element-atomicNumber">
-                                {item == -2 ?  afterPositiveCurrent.atomicNumber : ""}
-                                {item == -1 ? afterCurrent.atomicNumber : ""}
-                                {item == 0 ? currentElement.atomicNumber : ""}
-                                {item == 1 ? beforeCurrent.atomicNumber : ""}
-                                {item == 2 ? beforeNegativeCurrent.atomicNumber : ""}
-                                </span>
-                            <span className="carrousel-element-symbol"> 
-                                {item == -2 ? afterPositiveCurrent.symbol : ""}
-                                {item == -1 ? afterCurrent.symbol : ""}
-                                {item == 0 ? currentElement.symbol : ""}
-                                {item == 1 ? beforeCurrent.symbol : ""}
-                                {item == 2 ? beforeNegativeCurrent.symbol : ""}</span>
-                        </div>
-                        )
-                    
-                    )}
-                
+                    {stateAnimateScheme.map((item, index) => generateJSXDiv(item, index))}
             </div>
         )
                     }

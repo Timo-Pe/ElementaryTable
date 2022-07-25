@@ -19,7 +19,7 @@
     }
     &-element{
         
-        &[data-pos="-2"]{
+        &[data-pos="0"]{
             height: 110px;
             background-color:transparent;
             width: 110px;
@@ -32,9 +32,8 @@
             left:85px;
             padding:3em;
         }
-        &[data-pos="-1"]{
+        &[data-pos="1"]{
             @include mixins.element-carrousel;
-            background-color:blue;
             height: 110px;
             width: 110px;
             right: 20px;
@@ -42,25 +41,23 @@
             left:290px;
            
         }
-        &[data-pos="0"]{
+        &[data-pos="2"]{
             @include mixins.element-carrousel;
             height: 140px;
-            background-color:#4066b2;
             width: 140px;
             left:500px;
             top:476px;
             font-size: 1.7em;
         }
-        &[data-pos="1"]{
+        &[data-pos="3"]{
             @include mixins.element-carrousel;
-            background-color:red;
             height: 110px;
             width: 110px;
             right: 20px;
             top:290px;
             left:600px;
         }
-        &[data-pos="2"]{
+        &[data-pos="4"]{
             top:90px;
             left:600px;
             height: 110px;
@@ -70,7 +67,6 @@
             transition:0.2s;
             position: absolute;
             z-index: 1;
-            
         }
         &-symbol{
             font-size: 2em;
@@ -84,41 +80,40 @@
             display: block;
             text-align: right;
             height: 50%;
-    
         }
     }
 }
-.cell-halogen{
+.carrousel-element-halogen{
     background-color: #db758a;
   }
-  .cell-metalloid{
+  .carrousel-element-metalloid{
     background-color: #a576ac;
   }
-  .cell-alkali-metal{
+  .carrousel-element-alkali-metal{
     background-color: #b0c470;
   }
-  .cell-nonmetal{
+  .carrousel-element-nonmetal{
     background-color: #ca4960;
   }
-  .cell-metal{
+  .carrousel-element-metal{
     background-color: #804387;
   }
-  .cell-noble-gas{
+  .carrousel-element-noble-gas{
     background-color: #e4a3b1;
   }
-  .cell-transition-metal{
+  .carrousel-element-transition-metal{
     background-color: #4066b2;
   }
-  .cell-post-transition-metal{
+  .carrousel-element-post-transition-metal{
     background-color: #404040;
   }
-  .cell-alkaline-earth-metal{
+  .carrousel-element-alkaline-earth-metal{
     background-color: #90ae41;
   }
-  .cell-actinoid{
+  .carrousel-element-actinoid{
     background-color: #99add9;
   }
-  .cell-lanthanoid{
+  .carrousel-element-lanthanoid{
     background-color: #7690ca;
   }
 

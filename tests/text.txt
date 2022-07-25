@@ -17,3 +17,28 @@
                 <div className="elementPage-elementBackground">
                     <span>S</span>
                 </div>
+
+
+                <div className='carrousel' >
+                    {stateAnimateScheme.map((item, index) => (
+    
+                        <div key={index} className='carrousel-element cell-halogen' data-pos={item}>
+                            <span className="carrousel-element-atomicNumber">
+                                {item == -2 ?  afterPositiveCurrent.atomicNumber : ""}
+                                {item == -1 ? afterCurrent.atomicNumber : ""}
+                                {item == 0 ? currentElement.atomicNumber : ""}
+                                {item == 1 ? beforeCurrent.atomicNumber : ""}
+                                {item == 2 ? beforeNegativeCurrent.atomicNumber : ""}
+                                </span>
+                            <span className="carrousel-element-symbol"> 
+                                {item == -2 ? afterPositiveCurrent.symbol : ""}
+                                {item == -1 ? afterCurrent.symbol : ""}
+                                {item == 0 ? currentElement.symbol : ""}
+                                {item == 1 ? beforeCurrent.symbol : ""}
+                                {item == 2 ? beforeNegativeCurrent.symbol : ""}</span>
+                        </div>
+                        )
+                    
+                    )}
+                
+            </div>

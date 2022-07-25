@@ -1,26 +1,29 @@
 import "./element.scss";
 import { useParams } from "react-router-dom";
 import Carrousel from "src/components/Carrousel";
-
+import React, { useEffect } from 'react';
 
 // == Composant
-const Element = ({ setCurrentElementState , slugifyFunction, currentElement, allElements, stateAnimateScheme}) => {
+const Element = ({ setCurrentElementState , slugifyFunction, currentElements, allElements, stateAnimateScheme}) => {
 
     //const {atomicNumber} = useParams();
     //let currentNomber = parseInt(atomicNumber)
-
-
-        const elementCurrent = allElements.find(item => item.atomicNumber == currentElement);
-        const beforeCurrent = allElements.find(item => item.atomicNumber == currentElement - 1);
-        const beforeNegativeCurrent = allElements.find(item => item.atomicNumber == currentElement - 2);
-        const afterCurrent = allElements.find(item => item.atomicNumber == currentElement + 1);
-        const afterPositiveCurrent = allElements.find(item => item.atomicNumber == currentElement + 2);
-
-    
+        let elementCurrent  = allElements.find(item => item.atomicNumber == currentElements[2]);
+       
+        let tabsElements = [];
+       
+        const findDisplayElements = () => {
+            for (let element of currentElements){
+                const currentElement = allElements.find(item => item.atomicNumber == element);
+                tabsElements.push(currentElement);
+            }
+           
+        }
+            findDisplayElements();
     return (
 
             <div className="elementPage" >
-                <Carrousel  stateAnimateScheme={stateAnimateScheme} afterCurrent={afterCurrent} afterPositiveCurrent={afterPositiveCurrent} beforeNegativeCurrent={beforeNegativeCurrent} beforeCurrent={beforeCurrent} currentElement={elementCurrent} />
+                <Carrousel  slugifyFunction={slugifyFunction} stateAnimateScheme={stateAnimateScheme} currentElements={tabsElements} />
                 <div className="elementPage-details">
                     <h1 className='elementPage-details-title'>{elementCurrent.name}</h1>
                     <div className='elementPage-details-listContainer'>
@@ -41,7 +44,7 @@ const Element = ({ setCurrentElementState , slugifyFunction, currentElement, all
                     </div>
                 </div>
                 <p className='elementPage-description'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                <div className="elementPage-elementBackground">
+                <div className={`elementPage-elementBackground elementBackground-${slugifyFunction(elementCurrent.groupBlock)}`}>
                     <span className='elementPage-elementBackground-atomicNumber'>{elementCurrent.atomicNumber}</span>
                     <span className='elementPage-elementBackground-symbol'>{elementCurrent.symbol}</span>
                 </div>

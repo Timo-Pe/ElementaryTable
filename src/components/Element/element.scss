@@ -44,7 +44,7 @@
         border-radius:30px;
         font-size: 1.2em;
         height: 400px;
-        background-color:#4066b2;
+        
         width: 400px;
         box-shadow:7px 4px 8px 0px gray;
         color:#FFF;
@@ -68,4 +68,38 @@
     }
 
 }
+.elementBackground-halogen{
+    background-color: #db758a;
+  }
+  .elementBackground-metalloid{
+    background-color: #a576ac;
+  }
+  .elementBackground-alkali-metal{
+    background-color: #b0c470;
+  }
+  .elementBackground-nonmetal{
+    background-color: #ca4960;
+  }
+  .elementBackground-metal{
+    background-color: #804387;
+  }
+  .elementBackground-noble-gas{
+    background-color: #e4a3b1;
+  }
+  .elementBackground-transition-metal{
+    background-color: #4066b2;
+  }
+  .elementBackground-post-transition-metal{
+    background-color: #404040;
+  }
+  .elementBackground-alkaline-earth-metal{
+    background-color: #90ae41;
+  }
+  .elementBackground-actinoid{
+    background-color: #99add9;
+  }
+  .elementBackground-lanthanoid{
+    background-color: #7690ca;
+  }
+
 
