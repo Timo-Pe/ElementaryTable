@@ -16,7 +16,7 @@ const App = () => {
   const [schemeElementAnimate, setSchemeElementAnimate] = useState([0,1,2,3,4]);
   const [activeCarrousel, setActiveCarrousel] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [currentDisplayElement, setCurrentDisplayElement] = useState([117,118,1,2,3]);
+  const [displayElementCurrent, setDisplayElementCurrent] = useState([117,118,1,2,3]);
   const location = useLocation();
 
 
@@ -52,14 +52,14 @@ const App = () => {
 
   const decrementCurrentElement = () => {
     let tabsCopy = [];
-    for (let element of currentDisplayElement){
+    for (let element of displayElementCurrent){
       if (element == 1) {
         tabsCopy.push(118);
       }else {
         tabsCopy.push(element - 1);
       }  
     }
-    setCurrentDisplayElement(tabsCopy);
+    setDisplayElementCurrent(tabsCopy);
   }
 
   const handleScroll = (e) => {
@@ -68,19 +68,19 @@ const App = () => {
       carrouselAnimation(0)
       incrementCurrentElement()
       
-    }, 200)
+    }, 300)
   } 
     if (e.deltaY < 0){
       setTimeout( () => { 
         carrouselAnimation(1)
         decrementCurrentElement()
         
-      }, 200)
+      }, 300)
     }
 }
   const incrementCurrentElement = () => {
     let tabsCopy = [];
-    for (let element of currentDisplayElement){
+    for (let element of displayElementCurrent){
       if (element == 118) {
         tabsCopy.push(1);
       }else {
@@ -88,7 +88,7 @@ const App = () => {
       }
       
     }
-    setCurrentDisplayElement(tabsCopy);
+    setDisplayElementCurrent(tabsCopy);
   }
   const loadElements = () => {
 
@@ -137,7 +137,7 @@ const App = () => {
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
             /> } />
-        <Route path='/element/:atomicNumber' element={<Element setCurrentElementState={setCurrentDisplayElement} slugifyFunction= {slugify} currentElements={currentDisplayElement} allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path='/element/:atomicNumber' element={<Element setDisplayElementCurrent={setDisplayElementCurrent} displayElementCurrent={displayElementCurrent} slugifyFunction={slugify}  allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
       )}
