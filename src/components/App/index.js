@@ -1,23 +1,34 @@
-// == Import
+// == Import dependencies
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
-import Header from "src/components/Header";
-import "./app.scss";
 import axios from "axios";
+import { Routes, Route } from 'react-router';
+import { useDispatch, useSelector } from 'react-redux';
+// import locals components
+import Element from "src/components/Element"
+import Header from "src/components/Header";
+import PeriodicTable from "src/components/PeriodicTable";
+// import styles
+import "./app.scss";
+// import locals Datas
 import tabSchemeOne from 'src/datas/tabSchemeOne';
 import tabSchemeTwo from 'src/datas/tabSchemeTwo';
-import PeriodicTable from "src/components/PeriodicTable";
-import { Routes, Route } from 'react-router';
-import Element from "src/components/Element"
-// == Composant
+
+// import actions 
+import { isLoading } from '../../actions/element';
+
+
 const App = () => {
 
   const [elementstab, setElementstab] = useState([]);
+
   const [schemeElementAnimate, setSchemeElementAnimate] = useState([0,1,2,3,4]);
   const [activeCarrousel, setActiveCarrousel] = useState(false);
-  const [loading, setLoading] = useState(true);
+  
   const [displayElementCurrent, setDisplayElementCurrent] = useState([117,118,1,2,3]);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const loaded = useSelector((state) => state.element.load)
 
 
   const activatedCarrousel = () => {
@@ -87,8 +98,8 @@ const App = () => {
         tabsCopy.push(element + 1);
       }
       
+      setDisplayElementCurrent(tabsCopy);
     }
-    setDisplayElementCurrent(tabsCopy);
   }
   const loadElements = () => {
 
@@ -96,7 +107,8 @@ const App = () => {
 
     .then((response) => {
       setElementstab(response.data);
-      setLoading(false);
+      dispatch(isLoading(false));
+
     })
     .catch((error) => {
       console.log('error :', error);
@@ -115,8 +127,8 @@ const App = () => {
   }
     
   useEffect(() => {
-    loadElements();
- 
+    //loadElements();
+    
   }, []);
 
   useEffect(() => {
@@ -129,7 +141,7 @@ const App = () => {
     <div onWheel={activeCarrousel ? handleScroll : undefined} className="app">
       <Header />
 
-      {!loading && (
+      {!loaded && (
         <Routes>
         <Route path="/" element={<PeriodicTable 
             slugifyFunction={slugify} 
