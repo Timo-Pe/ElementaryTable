@@ -1,7 +1,6 @@
 // == Import dependencies
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import { Routes, Route } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 // import locals components
@@ -15,120 +14,91 @@ import tabSchemeOne from 'src/datas/tabSchemeOne';
 import tabSchemeTwo from 'src/datas/tabSchemeTwo';
 
 // import actions 
-import { isLoading } from '../../actions/element';
-
+import { getElementsFromApi } from '../../actions/periodicTable';
+import { activeCarrousel, setDisplayElementCurrent, setSchemeElementAnimate } from '../../actions/element';
+// import functions 
+import { carrouselAnimation, decrementCurrentElement, incrementCurrentElement } from '../../functions/elementFunctions';
 
 const App = () => {
 
-  const [elementstab, setElementstab] = useState([]);
 
-  const [schemeElementAnimate, setSchemeElementAnimate] = useState([0,1,2,3,4]);
-  const [activeCarrousel, setActiveCarrousel] = useState(false);
-  
-  const [displayElementCurrent, setDisplayElementCurrent] = useState([117,118,1,2,3]);
+  //const [schemeElementAnimate, setSchemeElementAnimate] = useState([0,1,2,3,4]);
+  //const [displayElementCurrent, setDisplayElementCurrent] = useState([117,118,1,2,3]);
   const location = useLocation();
   const dispatch = useDispatch();
-  const loaded = useSelector((state) => state.element.load)
-
-
+  const appLoaded = useSelector((state) => state.loader.loading)
+  const tabsElementsCurrent = useSelector((state) => state.element.displayElementCurrent)
+  const SchemeElementsAnimate = useSelector((state) => state.element.schemeElementsAnimate)
+  console.log(tabsElementsCurrent)
   const activatedCarrousel = () => {
       if (location.pathname.indexOf("element") === 1){
-        setActiveCarrousel(true);
+        dispatch(activeCarrousel(true));
       }else {
-        setActiveCarrousel(false);
+        dispatch(activeCarrousel(false));
       }
 
   }
 
-  const carrouselAnimation = (senseRotation) => {
-    let schemeElement = [];
+  // const carrouselAnimation = (senseRotation) => {
+  //   let schemeElement = [];
 
-    if (senseRotation === 0) {
-      for(let i of schemeElementAnimate){
-        i--
-        if (i === -1) { i = 4 };
-        schemeElement.push(i)
-      }
-    }else if (senseRotation === 1){
+  //   if (senseRotation === 0) {
+  //     for(let i of schemeElementAnimate){
+  //       i--
+  //       if (i === -1) { i = 4 };
+  //       schemeElement.push(i)
+  //     }
+  //   }else if (senseRotation === 1){
 
-      for(let i of schemeElementAnimate){
-        i++
-        if (i === 5) { i = 0 }
-        schemeElement.push(i)
-      }
-    }
-    setSchemeElementAnimate(schemeElement);
-  }
+  //     for(let i of schemeElementAnimate){
+  //       i++
+  //       if (i === 5) { i = 0 }
+  //       schemeElement.push(i)
+  //     }
+  //   }
+  //   setSchemeElementAnimate(schemeElement);
+  // }
 
-
-  const decrementCurrentElement = () => {
-    let tabsCopy = [];
-    for (let element of displayElementCurrent){
-      if (element == 1) {
-        tabsCopy.push(118);
-      }else {
-        tabsCopy.push(element - 1);
-      }  
-    }
-    setDisplayElementCurrent(tabsCopy);
-  }
+  // const decrementCurrentElement = (displayElementsCurrent) => {
+  //   let tabsCopy = [];
+  //   for (let element of displayElementsCurrent){
+  //     if (element == 1) {
+  //       tabsCopy.push(118);
+  //     }else {
+  //       tabsCopy.push(element - 1);
+  //     }  
+  //   }
+  //   setDisplayElementCurrent(tabsCopy);
+  // }
 
   const handleScroll = (e) => {
     if (e.deltaY > 0){
     setTimeout( () => { 
-      carrouselAnimation(0)
-      incrementCurrentElement()
-      
+      dispatch(setSchemeElementAnimate(carrouselAnimation(0, SchemeElementsAnimate)))
+      dispatch(setDisplayElementCurrent(incrementCurrentElement(tabsElementsCurrent)))
     }, 300)
   } 
     if (e.deltaY < 0){
       setTimeout( () => { 
-        carrouselAnimation(1)
-        decrementCurrentElement()
-        
+        dispatch(setSchemeElementAnimate(carrouselAnimation(1, SchemeElementsAnimate)))
+        dispatch(setDisplayElementCurrent(decrementCurrentElement(tabsElementsCurrent)))
       }, 300)
     }
 }
-  const incrementCurrentElement = () => {
-    let tabsCopy = [];
-    for (let element of displayElementCurrent){
-      if (element == 118) {
-        tabsCopy.push(1);
-      }else {
-        tabsCopy.push(element + 1);
-      }
+  // const incrementCurrentElement = () => {
+  //   let tabsCopy = [];
+  //   for (let element of displayElementCurrent){
+  //     if (element == 118) {
+  //       tabsCopy.push(1);
+  //     }else {
+  //       tabsCopy.push(element + 1);
+  //     }
       
-      setDisplayElementCurrent(tabsCopy);
-    }
-  }
-  const loadElements = () => {
-
-    axios.get('https://periodic-table-elements-info.herokuapp.com/elements')
-
-    .then((response) => {
-      setElementstab(response.data);
-      dispatch(isLoading(false));
-
-    })
-    .catch((error) => {
-      console.log('error :', error);
-    })
-  }
-
-  const slugify = (text) => {
-    return text
-      .toString()                           // Cast to string (optional)
-      .normalize('NFKD')            // The normalize() using NFKD method returns the Unicode Normalization Form of a given string.
-      .toLowerCase()                  // Convert the string to lowercase letters
-      .trim()                                  // Remove whitespace from both sides of a string (optional)
-      .replace(/\s+/g, '-')            // Replace spaces with -
-      .replace(/[^\w\-]+/g, '')     // Remove all non-word chars
-      .replace(/\-\-+/g, '-');        // Replace multiple - with single -
-  }
-    
+  //     setDisplayElementCurrent(tabsCopy);
+  //   }
+  // }
   useEffect(() => {
-    //loadElements();
-    
+    dispatch(getElementsFromApi());
   }, []);
 
   useEffect(() => {
@@ -140,16 +110,14 @@ const App = () => {
       
     <div onWheel={activeCarrousel ? handleScroll : undefined} className="app">
       <Header />
-
-      {!loaded && (
+   
+      {!appLoaded && (
         <Routes>
         <Route path="/" element={<PeriodicTable 
-            slugifyFunction={slugify} 
-            tabAllElements={elementstab} 
             firstTabScheme={tabSchemeOne} 
             secondTabScheme={tabSchemeTwo}
             /> } />
-        <Route path='/element/:atomicNumber' element={<Element setDisplayElementCurrent={setDisplayElementCurrent} displayElementCurrent={displayElementCurrent} slugifyFunction={slugify}  allElements={elementstab} stateAnimateScheme={schemeElementAnimate} />} />
+        <Route path='/element/:atomicNumber' element={<Element/>} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
       )}

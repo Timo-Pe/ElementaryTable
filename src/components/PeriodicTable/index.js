@@ -1,16 +1,21 @@
 import "./periodicTable.scss";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { slugify } from "../../functions/appFunctions";
+
 
 // == Composant
-const PeriodicTable = ({slugifyFunction, tabAllElements, firstTabScheme, secondTabScheme}) => {
+const PeriodicTable = ({firstTabScheme, secondTabScheme}) => {
     
 
     // Function that allows the generation of columns with the number of cells
+    const allElements = useSelector((state) => state.periodicTable.allElements);
+  
     const generateCells = (currentColumnScheme) => {
 
         let cellsTabJsx = [];
         
-        tabAllElements.find((objectCurrentElement) => {
+        allElements.find((objectCurrentElement) => {
               for(let cell of currentColumnScheme){
                 if (objectCurrentElement.atomicNumber === cell){
                   cellsTabJsx.push(objectCurrentElement);
@@ -20,15 +25,15 @@ const PeriodicTable = ({slugifyFunction, tabAllElements, firstTabScheme, secondT
           cellsTabJsx.reverse();
           return (
             cellsTabJsx.map((objectCurrent, index) => (
-              <Link to={`/element/${objectCurrent.atomicNumber}`} key={index} className={`cell cell-${slugifyFunction(objectCurrent.groupBlock)}`}>
+              <Link to={`/element/${objectCurrent.atomicNumber}`} key={index} className={`cell cell-${slugify(objectCurrent.groupBlock)}`}>
                 <span className="cell-atomicNumber">{objectCurrent.atomicNumber}</span>
                 <span className="cell-symbol">{objectCurrent.symbol}</span>
               </Link>
       
             )))
       }
-    
     return (
+        
             <div className="periodicTable">
                 <div className="periodicTable-one">
                 {firstTabScheme.map((currentScheme, index) => (

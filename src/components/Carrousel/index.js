@@ -1,11 +1,13 @@
 import "./carrousel.scss";
-
+import { findDisplayElements } from "../../functions/elementFunctions";
+import { useSelector } from "react-redux";
 
 // == Composant
-const Carrousel = ({ slugifyFunction, findDisplayElements, stateAnimateScheme}) => {
-
+const Carrousel = ({ slugifyFunction , allElements}) => {
+    const stateAnimateScheme = useSelector((state) => state.element.schemeElementsAnimate);
+    const CurrentElements = useSelector((state) => state.element.displayElementCurrent);
     const generateCarrouselElement = (item, index) => {
-        let arrayDisplayElement = findDisplayElements();
+        let arrayDisplayElement = findDisplayElements(CurrentElements, allElements);
         const elementGenerated = arrayDisplayElement[item];
   
         return (<div key={index} className={`carrousel-element carrousel-element-${slugifyFunction(elementGenerated.groupBlock)}`} data-pos={item}>
