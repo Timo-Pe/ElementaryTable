@@ -1,16 +1,11 @@
 import "./periodicTable.scss";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { slugify } from "../../functions/appFunctions";
 
 
 // == Composant
-const PeriodicTable = ({firstTabScheme, secondTabScheme}) => {
+const PeriodicTable = ({firstTabScheme, secondTabScheme, allElements}) => {
     
-
-    // Function that allows the generation of columns with the number of cells
-    const allElements = useSelector((state) => state.periodicTable.allElements);
-  
     const generateCells = (currentColumnScheme) => {
 
         let cellsTabJsx = [];

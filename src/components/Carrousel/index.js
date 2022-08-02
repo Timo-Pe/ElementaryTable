@@ -3,22 +3,24 @@ import { findDisplayElements } from "../../functions/elementFunctions";
 import { useSelector } from "react-redux";
 
 // == Composant
-const Carrousel = ({ slugifyFunction , allElements}) => {
+const Carrousel = ({ slugifyFunction , allElements, displayElementCurrent}) => {
+
     const stateAnimateScheme = useSelector((state) => state.element.schemeElementsAnimate);
-    const CurrentElements = useSelector((state) => state.element.displayElementCurrent);
-    const generateCarrouselElement = (item, index) => {
-        let arrayDisplayElement = findDisplayElements(CurrentElements, allElements);
-        const elementGenerated = arrayDisplayElement[item];
+
+    const generateCarrouselElement = (position, index) => {
+        const arrayDisplayElement = findDisplayElements(displayElementCurrent, allElements);
+        const elementGenerated = arrayDisplayElement[position];
   
-        return (<div key={index} className={`carrousel-element carrousel-element-${slugifyFunction(elementGenerated.groupBlock)}`} data-pos={item}>
-                    <span className="carrousel-element-atomicNumber">{elementGenerated.atomicNumber}</span>
-                    <span className="carrousel-element-symbol">{elementGenerated.symbol}</span>
-                </div>)
-        }
         return (
-    
+            <div key={index} className={`carrousel-element carrousel-element-${slugifyFunction(elementGenerated.groupBlock)}`} data-pos={position}>
+                <span className="carrousel-element-atomicNumber">{elementGenerated.atomicNumber}</span>
+                <span className="carrousel-element-symbol">{elementGenerated.symbol}</span>
+            </div>)
+        }
+
+        return (
             <div className='carrousel' >
-                    {stateAnimateScheme.map((item, index) => generateCarrouselElement(item, index))}
+                    {stateAnimateScheme.map((position, index) => generateCarrouselElement(position, index))}
             </div>
         )
 }

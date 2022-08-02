@@ -8,51 +8,22 @@ import { initCurrentElement } from '../../functions/elementFunctions';
 import { setDisplayElementCurrent } from '../../actions/element';
 
 // == Composant
-const Element = () => {
-    const displayElementCurrent = useSelector((state) => state.element.displayElementCurrent);
-    console.log(displayElementCurrent)
-    const allElements = useSelector((state) => state.periodicTable.allElements);
+const Element = ({allElements}) => {
     const dispatch = useDispatch();
-    const elementDisplay  = allElements.find(item => item.atomicNumber == displayElementCurrent[2]);
-    console.log(elementDisplay)
     const {atomicNumber} = useParams();
     const currentAtomicNumber = parseInt(atomicNumber);
 
-    
-    // const initCurrentElement = () => {
-    //     const arrayFinal = []
-    //     const arrayScheme = [
-    //         currentAtomicNumber - 2, 
-    //         currentAtomicNumber - 1, 
-    //         currentAtomicNumber, 
-    //         currentAtomicNumber + 1, 
-    //         currentAtomicNumber + 2
-    //     ]
-    //     for (let item of arrayScheme){
-    //         if (item === 0) {
-    //             arrayFinal.push(item = 118)
-    //         }else if (item === -1){
-    //             arrayFinal.push(item = 117)
-    //         }else if (item === 119){
-    //             arrayFinal.push(item = 1)
-    //         }else if (item === 120){
-    //             arrayFinal.push(item = 2)
-    //         }else {
-    //             arrayFinal.push(item);
-    //         }
-    //     }
-    //     setDisplayElementCurrent(arrayFinal);
-    // }
+    const displayElementCurrent = useSelector((state) => state.element.displayElementCurrent);
+    const elementDisplay  = allElements.find(item => item.atomicNumber == displayElementCurrent[2]);
 
     useEffect(() => {
         dispatch(setDisplayElementCurrent(initCurrentElement(currentAtomicNumber)));
     }, []);
-
   
     return (
 
             <div className="elementPage" >
-                <Carrousel  slugifyFunction={slugify} allElements= {allElements} />
+                <Carrousel  slugifyFunction={slugify} allElements= {allElements} displayElementCurrent={displayElementCurrent}/>
                 <div className="elementPage-details">
                     <h1 className='elementPage-details-title'>{elementDisplay.name}</h1>
                     <div className='elementPage-details-listContainer'>

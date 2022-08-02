@@ -1,5 +1,5 @@
 // == Import dependencies
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import { Routes, Route } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,15 +21,15 @@ import { carrouselAnimation, decrementCurrentElement, incrementCurrentElement } 
 
 const App = () => {
 
-
-  //const [schemeElementAnimate, setSchemeElementAnimate] = useState([0,1,2,3,4]);
-  //const [displayElementCurrent, setDisplayElementCurrent] = useState([117,118,1,2,3]);
   const location = useLocation();
   const dispatch = useDispatch();
-  const appLoaded = useSelector((state) => state.loader.loading)
-  const tabsElementsCurrent = useSelector((state) => state.element.displayElementCurrent)
-  const SchemeElementsAnimate = useSelector((state) => state.element.schemeElementsAnimate)
-  console.log(tabsElementsCurrent)
+
+  
+  const allElements = useSelector((state) => state.periodicTable.allElements);
+  const appLoaded = useSelector((state) => state.loader.loading);
+  const tabsElementsCurrent = useSelector((state) => state.element.displayElementCurrent);
+  const SchemeElementsAnimate = useSelector((state) => state.element.schemeElementsAnimate);
+
   const activatedCarrousel = () => {
       if (location.pathname.indexOf("element") === 1){
         dispatch(activeCarrousel(true));
@@ -38,38 +38,6 @@ const App = () => {
       }
 
   }
-
-  // const carrouselAnimation = (senseRotation) => {
-  //   let schemeElement = [];
-
-  //   if (senseRotation === 0) {
-  //     for(let i of schemeElementAnimate){
-  //       i--
-  //       if (i === -1) { i = 4 };
-  //       schemeElement.push(i)
-  //     }
-  //   }else if (senseRotation === 1){
-
-  //     for(let i of schemeElementAnimate){
-  //       i++
-  //       if (i === 5) { i = 0 }
-  //       schemeElement.push(i)
-  //     }
-  //   }
-  //   setSchemeElementAnimate(schemeElement);
-  // }
-
-  // const decrementCurrentElement = (displayElementsCurrent) => {
-  //   let tabsCopy = [];
-  //   for (let element of displayElementsCurrent){
-  //     if (element == 1) {
-  //       tabsCopy.push(118);
-  //     }else {
-  //       tabsCopy.push(element - 1);
-  //     }  
-  //   }
-  //   setDisplayElementCurrent(tabsCopy);
-  // }
 
   const handleScroll = (e) => {
     if (e.deltaY > 0){
@@ -85,18 +53,7 @@ const App = () => {
       }, 300)
     }
 }
-  // const incrementCurrentElement = () => {
-  //   let tabsCopy = [];
-  //   for (let element of displayElementCurrent){
-  //     if (element == 118) {
-  //       tabsCopy.push(1);
-  //     }else {
-  //       tabsCopy.push(element + 1);
-  //     }
-      
-  //     setDisplayElementCurrent(tabsCopy);
-  //   }
-  // }
+
   useEffect(() => {
     dispatch(getElementsFromApi());
   }, []);
@@ -113,11 +70,8 @@ const App = () => {
    
       {!appLoaded && (
         <Routes>
-        <Route path="/" element={<PeriodicTable 
-            firstTabScheme={tabSchemeOne} 
-            secondTabScheme={tabSchemeTwo}
-            /> } />
-        <Route path='/element/:atomicNumber' element={<Element/>} />
+        <Route path="/" element={<PeriodicTable allElements={allElements} firstTabScheme={tabSchemeOne} secondTabScheme={tabSchemeTwo} /> } />
+        <Route path='/element/:atomicNumber' element={<Element allElements={allElements}/>} />
         <Route path="*" element={<div>Error: 404</div>}/>
       </Routes>
       )}

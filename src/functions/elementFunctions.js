@@ -49,9 +49,8 @@ export  const decrementCurrentElement = (displayElementsCurrent) => {
       }else {
         tabsCopy.push(element + 1);
       }
-      
-      return tabsCopy ;
     }
+    return tabsCopy;
   }
 
   export const initCurrentElement = (currentAtomicNumber) => {
