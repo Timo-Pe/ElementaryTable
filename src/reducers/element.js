@@ -1,35 +1,42 @@
 import { ACTIVE_CAROUSSEL } from '../actions/loader';
-import { SCHEME_ELEMENTS_ANIMATE, DISPLAY_ELEMENTS_CURRENT } from '../actions/element';
+import { SCHEME_ELEMENTS_ANIMATE, DISPLAY_ELEMENTS_CURRENT, CHANGE_HEADER } from '../actions/element';
 
 const initialState = {
    activeCaroussel: false,
    schemeElementsAnimate:[0,1,2,3,4],
    displayElementCurrent:[117,118,1,2,3],
+   headerValue:0,
   };
 
 
 const reducer = (state = initialState, action = {}) => {
     switch (action.type) {
-      case 'ACTIVE_CAROUSSEL':
+      case "ACTIVE_CAROUSSEL":
         return {
-          // on déverse toutes les infos du state actuel
+   
           ...state,
-          // on applique les modifications
+         
           activeCaroussel: action.value,
         };
-        case 'SCHEME_ELEMENTS_ANIMATE':
+      case "SCHEME_ELEMENTS_ANIMATE":
         return {
-          // on déverse toutes les infos du state actuel
+       
           ...state,
-          // on applique les modifications
+       
           schemeElementsAnimate: action.value,
         };
-        case 'DISPLAY_ELEMENTS_CURRENT':
+      case "DISPLAY_ELEMENTS_CURRENT":
         return {
-          // on déverse toutes les infos du state actuel
+         
           ...state,
-          // on applique les modifications
+        
           displayElementCurrent: action.value,
+        };
+        case "CHANGE_HEADER":
+        return {
+
+          ...state,
+          headerValue: action.value,
         };
       default:
         return state;

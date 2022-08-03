@@ -19,10 +19,12 @@ const Carrousel = ({ slugifyFunction , allElements, displayElementCurrent}) => {
         }
 
         return (
-            <div className='carrousel' >
-                    {stateAnimateScheme.map((position, index) => generateCarrouselElement(position, index))}
-            </div>
-        )
+          <div className="carrousel">
+            {stateAnimateScheme.map((position, index) =>
+              generateCarrouselElement(position, index)
+            )}
+          </div>
+        );
 }
 // == Export
 export default Carrousel;

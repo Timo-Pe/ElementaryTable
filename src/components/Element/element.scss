@@ -1,6 +1,8 @@
+@use "src/styles/vars";
+
 .elementPage{
     display: grid;
-    color:#0d429c;
+    color:vars.$backgroundBlack;
     margin-top: 1.8em;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;

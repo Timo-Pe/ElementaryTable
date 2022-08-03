@@ -1,10 +1,12 @@
 import "./periodicTable.scss";
 import { Link } from "react-router-dom";
 import { slugify } from "../../functions/appFunctions";
-
+// import locals Datas
+import firstTabScheme from 'src/datas/tabSchemeOne';
+import secondTabScheme from 'src/datas/tabSchemeTwo';
 
 // == Composant
-const PeriodicTable = ({firstTabScheme, secondTabScheme, allElements}) => {
+const PeriodicTable = ({ allElements }) => {
     
     const generateCells = (currentColumnScheme) => {
 
